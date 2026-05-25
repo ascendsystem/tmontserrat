@@ -6,6 +6,9 @@
 <meta name="description" content="Transports Montserrat - Operador Logístico Barcelona. 85 años de experiencia en logística integral, almacenaje y transporte nacional e internacional.">
 <title>Transports Montserrat | Operador Logístico Barcelona</title>
 
+<link rel="icon" type="png" href="favicon.png">
+<link rel="apple-touch-icon" href="logo.png">
+
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,7 +61,6 @@ body {
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition: width 0.2s var(--easing), height 0.2s var(--easing), background 0.2s;
-  mix-blend-mode: normal;
 }
 #cursor-ring {
   position: fixed;
@@ -100,7 +102,7 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
   background: transparent;
   border: none;
   padding: 8px 14px;
-  cursor: none;
+  cursor: pointer;
   transition: all 0.2s;
   text-transform: uppercase;
   border-right: 1px solid rgba(255,255,255,0.1);
@@ -138,6 +140,11 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
   align-items: center;
   gap: 14px;
   text-decoration: none;
+}
+.nav-logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
 }
 .nav-logo-mark {
   width: 44px;
@@ -177,12 +184,21 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
   color: rgba(255,255,255,0.45);
   line-height: 1;
 }
+
+/* ============================================================
+   NAVIGATION LINKS WITH DROPDOWNS
+   ============================================================ */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 28px;
   list-style: none;
 }
+
+.nav-item {
+  position: relative;
+}
+
 .nav-links a {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 13px;
@@ -194,6 +210,9 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
   position: relative;
   transition: color 0.2s;
   padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .nav-links a::after {
   content: '';
@@ -207,6 +226,106 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
 }
 .nav-links a:hover { color: var(--white); }
 .nav-links a:hover::after { width: 100%; }
+
+.nav-arrow {
+  font-size: 9px;
+  opacity: 0.6;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+.nav-item:hover .nav-arrow { transform: rotate(180deg); }
+
+/* Dropdown menus */
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 0;
+  background: rgba(2, 15, 38, 0.97);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: 2px solid var(--red);
+  min-width: 220px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+  z-index: 999;
+}
+.nav-item:hover .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown li {
+  list-style: none;
+}
+
+.nav-dropdown a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.65);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.2s;
+}
+.nav-dropdown a::after { display: none; }
+.nav-dropdown a:hover {
+  color: var(--white);
+  background: rgba(207,0,28,0.15);
+  padding-left: 26px;
+}
+
+/* Second level dropdown (nested) */
+.nav-dropdown-group {
+  position: relative;
+}
+
+.nav-dropdown-group > a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-dropdown-group > a .nav-arrow {
+  transform: rotate(-90deg);
+}
+
+.nav-dropdown-sub {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background: rgba(2, 15, 38, 0.97);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: 2px solid var(--red);
+  min-width: 260px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-8px);
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+  z-index: 1000;
+}
+.nav-dropdown-group:hover .nav-dropdown-sub {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.nav-dropdown-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  padding: 10px 20px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: block;
+}
+
 .nav-cta {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 12px;
@@ -281,8 +400,7 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
 .hero-img-overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(135deg, rgba(6,48,98,0.7) 0%, rgba(2,15,38,0.3) 100%);
+  background: linear-gradient(135deg, rgba(6,48,98,0.7) 0%, rgba(2,15,38,0.3) 100%);
 }
 .hero-img-bg {
   position: absolute;
@@ -322,11 +440,7 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
   transform: translateY(20px);
   animation: fadeUp 0.8s var(--easing) 0.3s forwards;
 }
-.hero-eyebrow-line {
-  width: 48px;
-  height: 1px;
-  background: var(--red);
-}
+.hero-eyebrow-line { width: 48px; height: 1px; background: var(--red); }
 .hero-eyebrow-text {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 11px;
@@ -496,9 +610,7 @@ body:has(button:hover) #cursor { width: 20px; height: 20px; }
   opacity: 0;
   animation: fadeUp 0.8s var(--easing) 1.5s forwards;
 }
-.hero-stat {
-  text-align: right;
-}
+.hero-stat { text-align: right; }
 .hero-stat-num {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 42px;
@@ -529,12 +641,7 @@ section { position: relative; }
   gap: 16px;
   margin-bottom: 24px;
 }
-.section-label-line {
-  width: 32px;
-  height: 2px;
-  background: var(--red);
-  flex-shrink: 0;
-}
+.section-label-line { width: 32px; height: 2px; background: var(--red); flex-shrink: 0; }
 .section-label-text {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 11px;
@@ -562,28 +669,19 @@ section { position: relative; }
   transform: translateY(40px);
   transition: opacity 0.9s var(--easing), transform 0.9s var(--easing);
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-left {
   opacity: 0;
   transform: translateX(-60px);
   transition: opacity 0.9s var(--easing), transform 0.9s var(--easing);
 }
-.reveal-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
 .reveal-right {
   opacity: 0;
   transform: translateX(60px);
   transition: opacity 0.9s var(--easing), transform 0.9s var(--easing);
 }
-.reveal-right.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
 
 /* ============================================================
    MARQUEE STRIP
@@ -673,7 +771,6 @@ section { position: relative; }
   clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
 }
 .about-feature-icon svg { width: 20px; height: 20px; fill: var(--white); }
-.about-feature-content {}
 .about-feature-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 18px;
@@ -683,18 +780,9 @@ section { position: relative; }
   color: var(--navy);
   margin-bottom: 6px;
 }
-.about-feature-desc {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(20,20,20,0.5);
-}
-.about-right {
-  position: relative;
-}
-.about-img-stack {
-  position: relative;
-  height: 600px;
-}
+.about-feature-desc { font-size: 14px; line-height: 1.6; color: rgba(20,20,20,0.5); }
+.about-right { position: relative; }
+.about-img-stack { position: relative; height: 600px; }
 .about-img-main {
   position: absolute;
   top: 0;
@@ -720,12 +808,7 @@ section { position: relative; }
   overflow: hidden;
   border: 6px solid var(--off-white);
 }
-.about-img-accent img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+.about-img-accent img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .about-badge {
   position: absolute;
   top: 42%;
@@ -773,7 +856,6 @@ section { position: relative; }
   margin-bottom: 80px;
 }
 .services-header .section-title { font-size: clamp(42px, 5vw, 76px); color: var(--white); }
-.services-header-right { padding-bottom: 8px; }
 .services-header-desc {
   font-size: 15px;
   line-height: 1.75;
@@ -793,8 +875,7 @@ section { position: relative; }
   padding: 48px 40px;
   overflow: hidden;
   transition: background 0.4s var(--easing), border-color 0.4s;
-  cursor: none;
-  group: true;
+  cursor: pointer;
 }
 .service-card::before {
   content: '';
@@ -828,10 +909,7 @@ section { position: relative; }
   clip-path: polygon(0 0, 88% 0, 100% 100%, 12% 100%);
   transition: background 0.3s, border-color 0.3s;
 }
-.service-card:hover .service-icon {
-  background: rgba(207,0,28,0.2);
-  border-color: rgba(207,0,28,0.4);
-}
+.service-card:hover .service-icon { background: rgba(207,0,28,0.2); border-color: rgba(207,0,28,0.4); }
 .service-icon svg { width: 22px; height: 22px; fill: var(--red); }
 .service-title {
   font-family: 'Barlow Condensed', sans-serif;
@@ -843,12 +921,7 @@ section { position: relative; }
   margin-bottom: 16px;
   line-height: 1.1;
 }
-.service-desc {
-  font-size: 14px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 32px;
-}
+.service-desc { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.4); margin-bottom: 32px; }
 .service-link {
   display: inline-flex;
   align-items: center;
@@ -864,7 +937,7 @@ section { position: relative; }
 }
 .service-link:hover { gap: 16px; }
 .service-link-arrow { width: 20px; height: 1px; background: var(--red); position: relative; }
-.service-link-arrow::after { content: '›'; position: absolute; right: -8px; top: -9px; font-size: 16px; }
+.service-link-arrow::after { content: '>'; position: absolute; right: -8px; top: -9px; font-size: 16px; }
 .service-card-featured {
   background: var(--red) !important;
   border-color: var(--red) !important;
@@ -879,7 +952,7 @@ section { position: relative; }
 .service-card-featured .service-link-arrow { background: rgba(255,255,255,0.9); }
 
 /* ============================================================
-   NUMBERS / STATS SECTION
+   NUMBERS SECTION
    ============================================================ */
 #numbers {
   background: var(--navy);
@@ -962,8 +1035,7 @@ section { position: relative; }
 .palletways-bg {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(ellipse 60% 60% at 80% 50%, rgba(207,0,28,0.08) 0%, transparent 70%);
+  background-image: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(207,0,28,0.08) 0%, transparent 70%);
 }
 .palletways-container {
   max-width: 1400px;
@@ -977,10 +1049,7 @@ section { position: relative; }
 .palletways-right .section-title { font-size: clamp(40px, 5vw, 68px); color: var(--white); }
 .palletways-right .section-body { margin-top: 24px; max-width: 460px; }
 .palletways-right .btn-primary { margin-top: 40px; }
-.palletways-img {
-  position: relative;
-  height: 500px;
-}
+.palletways-img { position: relative; height: 500px; }
 .palletways-img-main {
   position: absolute;
   top: 0;
@@ -1092,9 +1161,14 @@ section { position: relative; }
 }
 .wine-feature:last-child { border-right: none; }
 .wine-feature-icon {
-  font-size: 28px;
-  margin-bottom: 12px;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.wine-feature-icon svg { width: 32px; height: 32px; fill: rgba(255,255,255,0.6); }
 .wine-feature-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 16px;
@@ -1104,11 +1178,7 @@ section { position: relative; }
   color: var(--white);
   margin-bottom: 6px;
 }
-.wine-feature-desc {
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-  line-height: 1.5;
-}
+.wine-feature-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.5; }
 
 /* ============================================================
    NEWS SECTION
@@ -1140,7 +1210,7 @@ section { position: relative; }
   background: var(--white);
   overflow: hidden;
   transition: transform 0.4s var(--easing), box-shadow 0.4s;
-  cursor: none;
+  cursor: pointer;
 }
 .news-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.12); }
 .news-img {
@@ -1153,12 +1223,7 @@ section { position: relative; }
 }
 .news-card:hover .news-img { transform: scale(1.04); filter: saturate(1); }
 .news-content { padding: 28px 32px 36px; }
-.news-meta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 14px;
-}
+.news-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
 .news-cat {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 10px;
@@ -1167,11 +1232,7 @@ section { position: relative; }
   text-transform: uppercase;
   color: var(--red);
 }
-.news-date {
-  font-size: 11px;
-  color: rgba(20,20,20,0.35);
-  letter-spacing: 0.08em;
-}
+.news-date { font-size: 11px; color: rgba(20,20,20,0.35); letter-spacing: 0.08em; }
 .news-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 22px;
@@ -1182,12 +1243,7 @@ section { position: relative; }
   line-height: 1.2;
   margin-bottom: 12px;
 }
-.news-excerpt {
-  font-size: 13px;
-  line-height: 1.65;
-  color: rgba(20,20,20,0.5);
-  margin-bottom: 20px;
-}
+.news-excerpt { font-size: 13px; line-height: 1.65; color: rgba(20,20,20,0.5); margin-bottom: 20px; }
 .news-read {
   display: inline-flex;
   align-items: center;
@@ -1202,13 +1258,8 @@ section { position: relative; }
   transition: gap 0.3s;
 }
 .news-read:hover { gap: 16px; }
-.news-read-arrow {
-  width: 18px;
-  height: 1px;
-  background: var(--red);
-  position: relative;
-}
-.news-read-arrow::after { content: '›'; position: absolute; right: -8px; top: -9px; font-size: 16px; }
+.news-read-arrow { width: 18px; height: 1px; background: var(--red); position: relative; }
+.news-read-arrow::after { content: '>'; position: absolute; right: -8px; top: -9px; font-size: 16px; }
 .news-card-sm .news-img { height: 180px; }
 .news-card-sm .news-title { font-size: 18px; }
 
@@ -1244,12 +1295,7 @@ section { position: relative; }
   position: relative;
   z-index: 5;
 }
-.cta-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 32px;
-}
+.cta-label { display: inline-flex; align-items: center; gap: 16px; margin-bottom: 32px; }
 .cta-label-line { width: 32px; height: 1px; background: var(--red); }
 .cta-label-text {
   font-family: 'Barlow Condensed', sans-serif;
@@ -1281,12 +1327,7 @@ section { position: relative; }
   max-width: 520px;
   margin: 0 auto 52px;
 }
-.cta-actions {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
+.cta-actions { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
 .cta-phone {
   display: flex;
   align-items: center;
@@ -1308,11 +1349,7 @@ section { position: relative; }
   padding: 80px 0 40px;
   border-top: 1px solid rgba(255,255,255,0.05);
 }
-.footer-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 48px;
-}
+.footer-container { max-width: 1400px; margin: 0 auto; padding: 0 48px; }
 .footer-main {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -1321,19 +1358,8 @@ section { position: relative; }
   border-bottom: 1px solid rgba(255,255,255,0.05);
   margin-bottom: 40px;
 }
-.footer-brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
-}
-.footer-brand-desc {
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.35);
-  max-width: 280px;
-  margin-bottom: 28px;
-}
+.footer-brand-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.footer-brand-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.35); max-width: 280px; margin-bottom: 28px; }
 .footer-contact-item {
   display: flex;
   align-items: center;
@@ -1345,13 +1371,7 @@ section { position: relative; }
   transition: color 0.2s;
 }
 .footer-contact-item:hover { color: rgba(255,255,255,0.8); }
-.footer-contact-icon {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--red);
-  flex-shrink: 0;
-}
+.footer-contact-icon { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
 .footer-col-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 11px;
@@ -1361,43 +1381,17 @@ section { position: relative; }
   color: rgba(255,255,255,0.25);
   margin-bottom: 24px;
 }
-.footer-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.footer-links a {
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-  text-decoration: none;
-  transition: color 0.2s, padding-left 0.2s;
-}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s, padding-left 0.2s; }
 .footer-links a:hover { color: rgba(255,255,255,0.8); padding-left: 6px; }
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.footer-copyright {
-  font-size: 12px;
-  color: rgba(255,255,255,0.2);
-  letter-spacing: 0.05em;
-}
-.footer-legal {
-  display: flex;
-  gap: 24px;
-}
-.footer-legal a {
-  font-size: 12px;
-  color: rgba(255,255,255,0.2);
-  text-decoration: none;
-  transition: color 0.2s;
-  letter-spacing: 0.05em;
-}
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-copyright { font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 0.05em; }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; letter-spacing: 0.05em; }
 .footer-legal a:hover { color: rgba(255,255,255,0.5); }
+
+/* Footer logo image */
+.footer-logo-img { height: 40px; width: auto; object-fit: contain; }
 
 /* ============================================================
    SCROLL PROGRESS BAR
@@ -1422,6 +1416,26 @@ section { position: relative; }
 [data-lang-inline].active { display: inline; }
 
 /* ============================================================
+   MOBILE MENU
+   ============================================================ */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+.mobile-menu-btn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+/* ============================================================
    MEDIA QUERIES
    ============================================================ */
 @media (max-width: 1200px) {
@@ -1442,6 +1456,7 @@ section { position: relative; }
   .hero-stats { display: none; }
   #nav { padding: 0 24px; }
   .nav-links { display: none; }
+  .mobile-menu-btn { display: flex; }
   .hero-content { padding: 0 24px; padding-top: 80px; }
 }
 
@@ -1480,8 +1495,10 @@ section { position: relative; }
 
 <!-- NAVIGATION -->
 <nav id="nav">
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-mark">TM</div>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Transports Montserrat" class="nav-logo-img"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="nav-logo-mark" style="display:none;">TM</div>
     <div class="nav-logo-text">
       <span class="nav-logo-name">Transports Montserrat</span>
       <span class="nav-logo-sub" data-lang="es active">Operador Logístico · Desde 1940</span>
@@ -1491,34 +1508,163 @@ section { position: relative; }
   </a>
 
   <ul class="nav-links">
-    <li><a href="#about">
-      <span data-lang-inline="es active">Empresa</span>
-      <span data-lang-inline="ca">Empresa</span>
-      <span data-lang-inline="en">Company</span>
-    </a></li>
-    <li><a href="#services">
-      <span data-lang-inline="es active">Servicios</span>
-      <span data-lang-inline="ca">Serveis</span>
-      <span data-lang-inline="en">Services</span>
-    </a></li>
-    <li><a href="#palletways">Palletways</a></li>
-    <li><a href="#wine">
-      <span data-lang-inline="es active">Transporte Vino</span>
-      <span data-lang-inline="ca">Transport Vi</span>
-      <span data-lang-inline="en">Wine Transport</span>
-    </a></li>
-    <li><a href="#news">
-      <span data-lang-inline="es active">Noticias</span>
-      <span data-lang-inline="ca">Notícies</span>
-      <span data-lang-inline="en">News</span>
-    </a></li>
+
+    <!-- EMPRESA -->
+    <li class="nav-item">
+      <a href="#about">
+        <span data-lang-inline="es active">Empresa</span>
+        <span data-lang-inline="ca">Empresa</span>
+        <span data-lang-inline="en">Company</span>
+        <span class="nav-arrow">&#9660;</span>
+      </a>
+      <ul class="nav-dropdown">
+        <li><a href="historia.html">
+          <span data-lang-inline="es active">Historia</span>
+          <span data-lang-inline="ca">Història</span>
+          <span data-lang-inline="en">History</span>
+        </a></li>
+        <li><a href="equipo.html">
+          <span data-lang-inline="es active">Equipo</span>
+          <span data-lang-inline="ca">Equip</span>
+          <span data-lang-inline="en">Team</span>
+        </a></li>
+        <li><a href="noticias.html">
+          <span data-lang-inline="es active">Noticias</span>
+          <span data-lang-inline="ca">Notícies</span>
+          <span data-lang-inline="en">News</span>
+        </a></li>
+        <li><a href="calidad.html">
+          <span data-lang-inline="es active">Política de Calidad</span>
+          <span data-lang-inline="ca">Política de Qualitat</span>
+          <span data-lang-inline="en">Quality Policy</span>
+        </a></li>
+      </ul>
+    </li>
+
+    <!-- SERVEIS -->
+    <li class="nav-item">
+      <a href="#services">
+        <span data-lang-inline="es active">Servicios</span>
+        <span data-lang-inline="ca">Serveis</span>
+        <span data-lang-inline="en">Services</span>
+        <span class="nav-arrow">&#9660;</span>
+      </a>
+      <ul class="nav-dropdown">
+
+        <!-- Logística sub-group -->
+        <li class="nav-dropdown-group">
+          <a href="#">
+            <span data-lang-inline="es active">Logística</span>
+            <span data-lang-inline="ca">Logística</span>
+            <span data-lang-inline="en">Logistics</span>
+            <span class="nav-arrow">&#9654;</span>
+          </a>
+          <ul class="nav-dropdown-sub">
+            <span class="nav-dropdown-label">
+              <span data-lang-inline="es active">Logística</span>
+              <span data-lang-inline="ca">Logística</span>
+              <span data-lang-inline="en">Logistics</span>
+            </span>
+            <li><a href="integral.html">
+              <span data-lang-inline="es active">Logística Integral</span>
+              <span data-lang-inline="ca">Logística Integral</span>
+              <span data-lang-inline="en">Full Logistics</span>
+            </a></li>
+            <li><a href="house.html">
+              <span data-lang-inline="es active">Logística In-House</span>
+              <span data-lang-inline="ca">Logística In-House</span>
+              <span data-lang-inline="en">In-House Logistics</span>
+            </a></li>
+            <li><a href="dedicado.html">
+              <span data-lang-inline="es active">Almacenamiento Dedicado</span>
+              <span data-lang-inline="ca">Emmagatzematge Dedicat</span>
+              <span data-lang-inline="en">Dedicated Storage</span>
+            </a></li>
+            <li><a href="multicliente.html">
+              <span data-lang-inline="es active">Almacenamiento Multicliente</span>
+              <span data-lang-inline="ca">Emmagatzematge Multicliente</span>
+              <span data-lang-inline="en">Multi-client Storage</span>
+            </a></li>
+            <li><a href="manipulacion.html">
+              <span data-lang-inline="es active">Manipulación</span>
+              <span data-lang-inline="ca">Manipulació</span>
+              <span data-lang-inline="en">Handling</span>
+            </a></li>
+            <li><a href="consolidaciones.html">
+              <span data-lang-inline="es active">Consolidaciones</span>
+              <span data-lang-inline="ca">Consolidacions</span>
+              <span data-lang-inline="en">Consolidations</span>
+            </a></li>
+          </ul>
+        </li>
+
+        <!-- Transportes sub-group -->
+        <li class="nav-dropdown-group">
+          <a href="#">
+            <span data-lang-inline="es active">Transportes</span>
+            <span data-lang-inline="ca">Transports</span>
+            <span data-lang-inline="en">Transport</span>
+            <span class="nav-arrow">&#9654;</span>
+          </a>
+          <ul class="nav-dropdown-sub">
+            <span class="nav-dropdown-label">
+              <span data-lang-inline="es active">Transportes</span>
+              <span data-lang-inline="ca">Transports</span>
+              <span data-lang-inline="en">Transport</span>
+            </span>
+            <li><a href="transporte.html">
+              <span data-lang-inline="es active">Transporte Nacional e Internacional</span>
+              <span data-lang-inline="ca">Transport Nacional i Internacional</span>
+              <span data-lang-inline="en">National &amp; International Transport</span>
+            </a></li>
+            <li><a href="paleteria.html">
+              <span data-lang-inline="es active">Distribución Paletería España/Portugal 24h</span>
+              <span data-lang-inline="ca">Distribució Paleteria Espanya/Portugal 24h</span>
+              <span data-lang-inline="en">Pallet Distribution Spain/Portugal 24h</span>
+            </a></li>
+            <li><a href="paleteriaeu.html">
+              <span data-lang-inline="es active">Distribución Paletería Europa</span>
+              <span data-lang-inline="ca">Distribució Paleteria Europa</span>
+              <span data-lang-inline="en">European Pallet Distribution</span>
+            </a></li>
+            <li><a href="cargascompletas.html">
+              <span data-lang-inline="es active">Grupajes y Cargas Completas</span>
+              <span data-lang-inline="ca">Grupatges i Càrregues Completes</span>
+              <span data-lang-inline="en">Groupage &amp; Full Loads</span>
+            </a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </li>
+
+    <!-- PALLETWAYS -->
+    <li class="nav-item">
+      <a href="palletways.html">Palletways</a>
+    </li>
+
+    <!-- TRANSPORTE VINO -->
+    <li class="nav-item">
+      <a href="vino.html">
+        <span data-lang-inline="es active">Transporte Vino</span>
+        <span data-lang-inline="ca">Transport Vi</span>
+        <span data-lang-inline="en">Wine Transport</span>
+      </a>
+    </li>
+
   </ul>
 
-  <a href="#cta" class="nav-cta">
-    <span data-lang-inline="es active">Contactar</span>
-    <span data-lang-inline="ca">Contactar</span>
+  <a href="contacto.html" class="nav-cta">
+    <span data-lang-inline="es active">Contacto</span>
+    <span data-lang-inline="ca">Contacte</span>
     <span data-lang-inline="en">Contact</span>
   </a>
+
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <!-- ============================================================ -->
@@ -1634,7 +1780,6 @@ section { position: relative; }
     <span class="marquee-item">Manipulaciones <span class="marquee-dot"></span></span>
     <span class="marquee-item">Consolidaciones <span class="marquee-dot"></span></span>
     <span class="marquee-item">Logística In-House <span class="marquee-dot"></span></span>
-    <!-- repeated for seamless loop -->
     <span class="marquee-item">Logística Integral <span class="marquee-dot"></span></span>
     <span class="marquee-item">Almacenaje Dedicado <span class="marquee-dot"></span></span>
     <span class="marquee-item">Distribución 24h <span class="marquee-dot"></span></span>
@@ -1697,9 +1842,9 @@ section { position: relative; }
           </div>
           <div class="about-feature-content">
             <div class="about-feature-title">
-              <span data-lang-inline="es active">Compromiso & Excelencia</span>
-              <span data-lang-inline="ca">Compromís & Excel·lència</span>
-              <span data-lang-inline="en">Commitment & Excellence</span>
+              <span data-lang-inline="es active">Compromiso &amp; Excelencia</span>
+              <span data-lang-inline="ca">Compromís &amp; Excel·lència</span>
+              <span data-lang-inline="en">Commitment &amp; Excellence</span>
             </div>
             <div class="about-feature-desc">
               <span data-lang-inline="es active">Totalmente comprometidos con la consecución de los objetivos de nuestros clientes, 24h/7.</span>
@@ -1714,9 +1859,9 @@ section { position: relative; }
           </div>
           <div class="about-feature-content">
             <div class="about-feature-title">
-              <span data-lang-inline="es active">Eficacia & Flexibilidad</span>
-              <span data-lang-inline="ca">Eficàcia & Flexibilitat</span>
-              <span data-lang-inline="en">Efficiency & Flexibility</span>
+              <span data-lang-inline="es active">Eficacia &amp; Flexibilidad</span>
+              <span data-lang-inline="ca">Eficàcia &amp; Flexibilitat</span>
+              <span data-lang-inline="en">Efficiency &amp; Flexibility</span>
             </div>
             <div class="about-feature-desc">
               <span data-lang-inline="es active">Respuestas rápidas. Somos ágiles y nos adaptamos a nuestros clientes en cada escenario.</span>
@@ -1776,7 +1921,7 @@ section { position: relative; }
           <span data-lang="ca">Traduïm la nostra experiència d'operador logístic en solucions personalitzades per a cada client.</span>
           <span data-lang="en">We translate our logistics expertise into tailored solutions for each client, adapted to their realities and needs.</span>
         </p>
-        <a href="#cta" class="btn-primary reveal" style="display:inline-flex;">
+        <a href="contacto.html" class="btn-primary reveal" style="display:inline-flex;">
           <span>
             <span data-lang-inline="es active">Solicitar información</span>
             <span data-lang-inline="ca">Sol·licitar informació</span>
@@ -1790,7 +1935,6 @@ section { position: relative; }
     </div>
 
     <div class="services-grid">
-      <!-- Service 1 - Featured -->
       <div class="service-card service-card-featured reveal">
         <div class="service-num">01</div>
         <div class="service-icon">
@@ -1806,7 +1950,7 @@ section { position: relative; }
           <span data-lang="ca">Coordinem tots els processos logístics, des del proveïment fins a la distribució final.</span>
           <span data-lang="en">We coordinate all logistics processes, from procurement to final distribution.</span>
         </p>
-        <a href="#" class="service-link">
+        <a href="integral.html" class="service-link">
           <span data-lang-inline="es active">Más información</span>
           <span data-lang-inline="ca">Més informació</span>
           <span data-lang-inline="en">Learn more</span>
@@ -1814,7 +1958,6 @@ section { position: relative; }
         </a>
       </div>
 
-      <!-- Service 2 -->
       <div class="service-card reveal">
         <div class="service-num">02</div>
         <div class="service-icon">
@@ -1823,14 +1966,14 @@ section { position: relative; }
         <h3 class="service-title">
           <span data-lang-inline="es active">Transporte Nacional<br>e Internacional</span>
           <span data-lang-inline="ca">Transport Nacional<br>i Internacional</span>
-          <span data-lang-inline="en">National &<br>International Transport</span>
+          <span data-lang-inline="en">National &amp;<br>International Transport</span>
         </h3>
         <p class="service-desc">
           <span data-lang="es active">Paletería exprés, grupajes y cargas completas. Coordinamos el transporte para garantizar una logística eficiente que cumpla sus objetivos.</span>
           <span data-lang="ca">Paleteria exprés, grupatges i càrregues completes. Logística eficient als vostres objectius.</span>
           <span data-lang="en">Express pallets, groupage and full loads. We coordinate transport to guarantee efficient logistics.</span>
         </p>
-        <a href="#" class="service-link">
+        <a href="transporte.html" class="service-link">
           <span data-lang-inline="es active">Más información</span>
           <span data-lang-inline="ca">Més informació</span>
           <span data-lang-inline="en">Learn more</span>
@@ -1838,7 +1981,6 @@ section { position: relative; }
         </a>
       </div>
 
-      <!-- Service 3 -->
       <div class="service-card reveal">
         <div class="service-num">03</div>
         <div class="service-icon">
@@ -1854,7 +1996,7 @@ section { position: relative; }
           <span data-lang="ca">Més de 55.000 m² d'emmagatzematge amb control de temperatura i registre sanitari.</span>
           <span data-lang="en">Over 55,000 m² of warehouses with temperature control and sanitary registration.</span>
         </p>
-        <a href="#" class="service-link">
+        <a href="dedicado.html" class="service-link">
           <span data-lang-inline="es active">Más información</span>
           <span data-lang-inline="ca">Més informació</span>
           <span data-lang-inline="en">Learn more</span>
@@ -1862,7 +2004,6 @@ section { position: relative; }
         </a>
       </div>
 
-      <!-- Service 4 -->
       <div class="service-card reveal">
         <div class="service-num">04</div>
         <div class="service-icon">
@@ -1878,7 +2019,7 @@ section { position: relative; }
           <span data-lang="ca">Cuidem la vostra cadena de subministrament aportant serveis logístics especialitzats.</span>
           <span data-lang="en">We care for your supply chain with specialized logistics services at every stage.</span>
         </p>
-        <a href="#" class="service-link">
+        <a href="multicliente.html" class="service-link">
           <span data-lang-inline="es active">Más información</span>
           <span data-lang-inline="ca">Més informació</span>
           <span data-lang-inline="en">Learn more</span>
@@ -1886,7 +2027,6 @@ section { position: relative; }
         </a>
       </div>
 
-      <!-- Service 5 -->
       <div class="service-card reveal">
         <div class="service-num">05</div>
         <div class="service-icon">
@@ -1902,7 +2042,7 @@ section { position: relative; }
           <span data-lang="ca">La nostra experiència en la gestió de les instal·lacions del client millora la logística interna.</span>
           <span data-lang="en">Our expertise in managing client facilities improves internal logistics in the hands of specialists.</span>
         </p>
-        <a href="#" class="service-link">
+        <a href="house.html" class="service-link">
           <span data-lang-inline="es active">Más información</span>
           <span data-lang-inline="ca">Més informació</span>
           <span data-lang-inline="en">Learn more</span>
@@ -1910,23 +2050,22 @@ section { position: relative; }
         </a>
       </div>
 
-      <!-- Service 6 -->
       <div class="service-card reveal">
         <div class="service-num">06</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         </div>
         <h3 class="service-title">
-          <span data-lang-inline="es active">Manipulaciones<br>& Consolidaciones</span>
-          <span data-lang-inline="ca">Manipulacions<br>& Consolidacions</span>
-          <span data-lang-inline="en">Handling<br>& Consolidations</span>
+          <span data-lang-inline="es active">Manipulaciones<br>&amp; Consolidaciones</span>
+          <span data-lang-inline="ca">Manipulacions<br>&amp; Consolidacions</span>
+          <span data-lang-inline="en">Handling<br>&amp; Consolidations</span>
         </h3>
         <p class="service-desc">
           <span data-lang="es active">Servicios de manipulación, etiquetado y preparación de pedidos. Nuestras instalaciones permiten consolidar pedidos de distintos proveedores.</span>
           <span data-lang="ca">Serveis de manipulació, etiquetatge i preparació de comandes. Consolidem comandes de diferents proveïdors.</span>
           <span data-lang="en">Handling, labelling and order preparation services. Consolidate orders from different suppliers.</span>
         </p>
-        <a href="#" class="service-link">
+        <a href="manipulacion.html" class="service-link">
           <span data-lang-inline="es active">Más información</span>
           <span data-lang-inline="ca">Més informació</span>
           <span data-lang-inline="en">Learn more</span>
@@ -2007,7 +2146,7 @@ section { position: relative; }
   <div class="palletways-container">
     <div class="palletways-img reveal-left">
       <div class="palletways-img-main">
-        <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=800&q=80" alt="Palletways Network" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&q=80" alt="Palletways distribución paletizada Europa" loading="lazy">
       </div>
       <div class="palletways-img-accent">
         <div class="palletways-accent-num">24h</div>
@@ -2033,7 +2172,7 @@ section { position: relative; }
         <span data-lang="ca">Montserrat forma part de la xarxa Palletways des de fa més de 12 anys. Gràcies a aquesta integració oferim lliuraments exprés a Espanya, Portugal i tota Europa.</span>
         <span data-lang="en">Montserrat has been part of the Palletways network for over 12 years. Through this integration we offer express deliveries across Spain, Portugal and all of Europe.</span>
       </p>
-      <a href="#" class="btn-primary reveal" style="margin-top:40px;display:inline-flex;">
+      <a href="palletways.html" class="btn-primary reveal" style="margin-top:40px;display:inline-flex;">
         <span>
           <span data-lang-inline="es active">Conocer la red</span>
           <span data-lang-inline="ca">Conèixer la xarxa</span>
@@ -2065,7 +2204,11 @@ section { position: relative; }
     </p>
     <div class="wine-features reveal">
       <div class="wine-feature">
-        <div class="wine-feature-icon">🏗️</div>
+        <div class="wine-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+          </svg>
+        </div>
         <div class="wine-feature-title">
           <span data-lang-inline="es active">Acero Inoxidable</span>
           <span data-lang-inline="ca">Acer Inoxidable</span>
@@ -2078,7 +2221,11 @@ section { position: relative; }
         </div>
       </div>
       <div class="wine-feature">
-        <div class="wine-feature-icon">❄️</div>
+        <div class="wine-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
         <div class="wine-feature-title">
           <span data-lang-inline="es active">Isotérmicas</span>
           <span data-lang-inline="ca">Isotèrmiques</span>
@@ -2091,7 +2238,11 @@ section { position: relative; }
         </div>
       </div>
       <div class="wine-feature">
-        <div class="wine-feature-icon">📍</div>
+        <div class="wine-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
         <div class="wine-feature-title">
           <span data-lang-inline="es active">Penedès · Anoia · Garraf</span>
           <span data-lang-inline="ca">Penedès · Anoia · Garraf</span>
@@ -2104,7 +2255,7 @@ section { position: relative; }
         </div>
       </div>
     </div>
-    <a href="#cta" class="btn-primary reveal" style="display:inline-flex;">
+    <a href="contacto.html" class="btn-primary reveal" style="display:inline-flex;">
       <span>
         <span data-lang-inline="es active">Solicitar información</span>
         <span data-lang-inline="ca">Sol·licitar informació</span>
@@ -2133,12 +2284,12 @@ section { position: relative; }
           </span>
         </div>
         <h2 class="section-title reveal" style="font-size:clamp(42px,5vw,72px);color:var(--navy);">
-          <span data-lang="es active">Novedades<br>& Actualidad</span>
-          <span data-lang="ca">Novetats<br>& Actualitat</span>
-          <span data-lang="en">Updates<br>& News</span>
+          <span data-lang="es active">Novedades<br>&amp; Actualidad</span>
+          <span data-lang="ca">Novetats<br>&amp; Actualitat</span>
+          <span data-lang="en">Updates<br>&amp; News</span>
         </h2>
       </div>
-      <a href="#" class="btn-primary reveal" style="display:inline-flex;">
+      <a href="noticias.html" class="btn-primary reveal" style="display:inline-flex;">
         <span>
           <span data-lang-inline="es active">Ver todas</span>
           <span data-lang-inline="ca">Veure totes</span>
@@ -2152,15 +2303,23 @@ section { position: relative; }
 
     <div class="news-grid">
       <div class="news-card reveal-left">
-        <img class="news-img" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" alt="Palletways" loading="lazy">
+        <img class="news-img" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" alt="Palletways distribución logística" loading="lazy">
         <div class="news-content">
           <div class="news-meta">
-            <span class="news-cat">Noticias</span>
+            <span class="news-cat">
+              <span data-lang-inline="es active">Noticias</span>
+              <span data-lang-inline="ca">Notícies</span>
+              <span data-lang-inline="en">News</span>
+            </span>
             <span class="news-date">Mar 1, 2025</span>
           </div>
           <h3 class="news-title">Transports Montserrat y Palletways: Logística y Distribución Paletizada</h3>
-          <p class="news-excerpt">La logística moderna requiere soluciones eficientes y rápidas. En Transports Montserrat, con décadas de experiencia en el sector del transporte y almacenamiento, hemos apostado por Palletways Iberia.</p>
-          <a href="#" class="news-read">
+          <p class="news-excerpt">
+            <span data-lang="es active">La logística moderna requiere soluciones eficientes y rápidas. En Transports Montserrat, con décadas de experiencia en el sector del transporte y almacenamiento, hemos apostado por Palletways Iberia.</span>
+            <span data-lang="ca">La logística moderna requereix solucions eficients i ràpides. A Transports Montserrat, amb dècades d'experiència, hem apostat per Palletways Iberia.</span>
+            <span data-lang="en">Modern logistics requires efficient and fast solutions. At Transports Montserrat, with decades of experience, we have committed to Palletways Iberia.</span>
+          </p>
+          <a href="noticias.html" class="news-read">
             <span data-lang-inline="es active">Leer más</span>
             <span data-lang-inline="ca">Llegir més</span>
             <span data-lang-inline="en">Read more</span>
@@ -2170,15 +2329,23 @@ section { position: relative; }
       </div>
 
       <div class="news-card news-card-sm reveal">
-        <img class="news-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80" alt="Feliz 2025" loading="lazy">
+        <img class="news-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="85 aniversario Transports Montserrat" loading="lazy">
         <div class="news-content">
           <div class="news-meta">
-            <span class="news-cat">Noticias</span>
+            <span class="news-cat">
+              <span data-lang-inline="es active">Noticias</span>
+              <span data-lang-inline="ca">Notícies</span>
+              <span data-lang-inline="en">News</span>
+            </span>
             <span class="news-date">Dic 30, 2024</span>
           </div>
-          <h3 class="news-title">🎉 ¡Feliz Año 2025! 85 Aniversario</h3>
-          <p class="news-excerpt">Este año 2025 se cumplen 85 años desde que nuestro abuelo Josep Montserrat Romagosa inició la actividad del transporte.</p>
-          <a href="#" class="news-read">
+          <h3 class="news-title">Feliz Año 2025 — 85 Aniversario</h3>
+          <p class="news-excerpt">
+            <span data-lang="es active">Este año 2025 se cumplen 85 años desde que nuestro abuelo Josep Montserrat Romagosa inició la actividad del transporte.</span>
+            <span data-lang="ca">L'any 2025 es compleixen 85 anys des que el nostre avi Josep Montserrat Romagosa va iniciar l'activitat del transport.</span>
+            <span data-lang="en">In 2025 it has been 85 years since our grandfather Josep Montserrat Romagosa started the transport business.</span>
+          </p>
+          <a href="noticias.html" class="news-read">
             <span data-lang-inline="es active">Leer más</span>
             <span data-lang-inline="ca">Llegir més</span>
             <span data-lang-inline="en">Read more</span>
@@ -2188,15 +2355,23 @@ section { position: relative; }
       </div>
 
       <div class="news-card news-card-sm reveal-right">
-        <img class="news-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80" alt="Penedès Logística" loading="lazy">
+        <img class="news-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80" alt="Logística Penedès Anoia Garraf" loading="lazy">
         <div class="news-content">
           <div class="news-meta">
-            <span class="news-cat">Noticias</span>
+            <span class="news-cat">
+              <span data-lang-inline="es active">Noticias</span>
+              <span data-lang-inline="ca">Notícies</span>
+              <span data-lang-inline="en">News</span>
+            </span>
             <span class="news-date">Dic 1, 2024</span>
           </div>
           <h3 class="news-title">Logística en el Penedès, Anoia y Garraf</h3>
-          <p class="news-excerpt">Especialistas en soluciones completas de logística y transporte empresarial en las áreas de Penedès, Anoia y Garraf.</p>
-          <a href="#" class="news-read">
+          <p class="news-excerpt">
+            <span data-lang="es active">Especialistas en soluciones completas de logística y transporte empresarial en las áreas de Penedès, Anoia y Garraf.</span>
+            <span data-lang="ca">Especialistes en solucions completes de logística i transport empresarial a les àrees del Penedès, Anoia i Garraf.</span>
+            <span data-lang="en">Specialists in complete logistics and business transport solutions in the Penedès, Anoia and Garraf areas.</span>
+          </p>
+          <a href="noticias.html" class="news-read">
             <span data-lang-inline="es active">Leer más</span>
             <span data-lang-inline="ca">Llegir més</span>
             <span data-lang-inline="en">Read more</span>
@@ -2224,7 +2399,7 @@ section { position: relative; }
       <div class="cta-label-line"></div>
     </div>
     <h2 class="cta-title reveal">
-      <span data-lang="es active">¿Listo para <em>optimizar</em><br>tu logística?</span>
+      <span data-lang="es active">Listo para <em>optimizar</em><br>tu logística?</span>
       <span data-lang="ca">Preparat per <em>optimitzar</em><br>la teva logística?</span>
       <span data-lang="en">Ready to <em>optimize</em><br>your logistics?</span>
     </h2>
@@ -2234,7 +2409,7 @@ section { position: relative; }
       <span data-lang="en">If you're looking for a trusted logistics operator that offers personalised and efficient solutions, we're ready to help you.</span>
     </p>
     <div class="cta-actions reveal">
-      <a href="mailto:montserrat@tmontserrat.com" class="btn-primary">
+      <a href="contacto.html" class="btn-primary">
         <span>
           <span data-lang-inline="es active">Enviar mensaje</span>
           <span data-lang-inline="ca">Enviar missatge</span>
@@ -2262,7 +2437,9 @@ section { position: relative; }
     <div class="footer-main">
       <div>
         <div class="footer-brand-logo">
-          <div class="nav-logo-mark">TM</div>
+          <img src="logo.png" alt="Transports Montserrat" class="footer-logo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="nav-logo-mark" style="display:none;">TM</div>
           <div class="nav-logo-text">
             <span class="nav-logo-name">Transports Montserrat</span>
             <span class="nav-logo-sub">Est. 1940</span>
@@ -2274,16 +2451,13 @@ section { position: relative; }
           <span data-lang="en">Logistics operator with over 85 years of experience. Full logistics, warehousing and national and international transport from Barcelona.</span>
         </p>
         <a href="tel:+34938911018" class="footer-contact-item">
-          <span class="footer-contact-icon"></span>
-          +34 938 91 10 18
+          <span class="footer-contact-icon"></span>+34 938 91 10 18
         </a>
         <a href="mailto:montserrat@tmontserrat.com" class="footer-contact-item">
-          <span class="footer-contact-icon"></span>
-          montserrat@tmontserrat.com
+          <span class="footer-contact-icon"></span>montserrat@tmontserrat.com
         </a>
         <a href="#" class="footer-contact-item">
-          <span class="footer-contact-icon"></span>
-          Vilafranca del Penedès · Sant Sadurní d'Anoia
+          <span class="footer-contact-icon"></span>Vilafranca del Penedès · Sant Sadurní d'Anoia
         </a>
       </div>
 
@@ -2294,32 +2468,32 @@ section { position: relative; }
           <span data-lang-inline="en">Logistics</span>
         </div>
         <ul class="footer-links">
-          <li><a href="#">
+          <li><a href="integral.html">
             <span data-lang-inline="es active">Logística Integral</span>
             <span data-lang-inline="ca">Logística Integral</span>
             <span data-lang-inline="en">Full Logistics</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="house.html">
             <span data-lang-inline="es active">Logística In-House</span>
             <span data-lang-inline="ca">Logística In-House</span>
             <span data-lang-inline="en">In-House Logistics</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="dedicado.html">
             <span data-lang-inline="es active">Almacenamiento Dedicado</span>
             <span data-lang-inline="ca">Emmagatzematge Dedicat</span>
             <span data-lang-inline="en">Dedicated Storage</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="multicliente.html">
             <span data-lang-inline="es active">Almacenamiento Multicliente</span>
             <span data-lang-inline="ca">Emmagatzematge Multicliente</span>
             <span data-lang-inline="en">Multi-client Storage</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="manipulacion.html">
             <span data-lang-inline="es active">Manipulaciones</span>
             <span data-lang-inline="ca">Manipulacions</span>
             <span data-lang-inline="en">Handling</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="consolidaciones.html">
             <span data-lang-inline="es active">Consolidaciones</span>
             <span data-lang-inline="ca">Consolidacions</span>
             <span data-lang-inline="en">Consolidations</span>
@@ -2334,32 +2508,32 @@ section { position: relative; }
           <span data-lang-inline="en">Transport</span>
         </div>
         <ul class="footer-links">
-          <li><a href="#">
+          <li><a href="transporte.html">
             <span data-lang-inline="es active">Nacional e Internacional</span>
             <span data-lang-inline="ca">Nacional i Internacional</span>
-            <span data-lang-inline="en">National & International</span>
+            <span data-lang-inline="en">National &amp; International</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="paleteria.html">
             <span data-lang-inline="es active">Distribución 24h España y Portugal</span>
             <span data-lang-inline="ca">Distribució 24h Espanya i Portugal</span>
-            <span data-lang-inline="en">24h Spain & Portugal</span>
+            <span data-lang-inline="en">24h Spain &amp; Portugal</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="paleteriaeu.html">
             <span data-lang-inline="es active">Distribución a Europa</span>
             <span data-lang-inline="ca">Distribució a Europa</span>
             <span data-lang-inline="en">European Distribution</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="cargascompletas.html">
             <span data-lang-inline="es active">Grupajes y Cargas Completas</span>
             <span data-lang-inline="ca">Grupatges i Càrregues Completes</span>
-            <span data-lang-inline="en">Groupage & Full Loads</span>
+            <span data-lang-inline="en">Groupage &amp; Full Loads</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="vino.html">
             <span data-lang-inline="es active">Vino a Granel</span>
             <span data-lang-inline="ca">Vi a Granel</span>
             <span data-lang-inline="en">Bulk Wine</span>
           </a></li>
-          <li><a href="#">Red Palletways</a></li>
+          <li><a href="palletways.html">Red Palletways</a></li>
         </ul>
       </div>
 
@@ -2370,30 +2544,30 @@ section { position: relative; }
           <span data-lang-inline="en">Company</span>
         </div>
         <ul class="footer-links">
-          <li><a href="#">
-            <span data-lang-inline="es active">Sobre Nosotros</span>
-            <span data-lang-inline="ca">Sobre Nosaltres</span>
-            <span data-lang-inline="en">About Us</span>
+          <li><a href="historia.html">
+            <span data-lang-inline="es active">Historia</span>
+            <span data-lang-inline="ca">Història</span>
+            <span data-lang-inline="en">History</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="equipo.html">
             <span data-lang-inline="es active">Nuestro Equipo</span>
             <span data-lang-inline="ca">El Nostre Equip</span>
             <span data-lang-inline="en">Our Team</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="noticias.html">
             <span data-lang-inline="es active">Actualidad</span>
             <span data-lang-inline="ca">Actualitat</span>
             <span data-lang-inline="en">News</span>
           </a></li>
-          <li><a href="#">
+          <li><a href="calidad.html">
             <span data-lang-inline="es active">Política de Calidad</span>
             <span data-lang-inline="ca">Política de Qualitat</span>
             <span data-lang-inline="en">Quality Policy</span>
           </a></li>
-          <li><a href="#">
-            <span data-lang-inline="es active">Canal Ético</span>
-            <span data-lang-inline="ca">Canal Ètic</span>
-            <span data-lang-inline="en">Ethics Channel</span>
+          <li><a href="contacto.html">
+            <span data-lang-inline="es active">Contacto</span>
+            <span data-lang-inline="ca">Contacte</span>
+            <span data-lang-inline="en">Contact</span>
           </a></li>
         </ul>
       </div>
@@ -2477,7 +2651,7 @@ window.addEventListener('scroll', () => {
 // ============================================================
 const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       const delay = entry.target.dataset.delay || 0;
       setTimeout(() => {
@@ -2523,7 +2697,7 @@ const counterObserver = new IntersectionObserver((entries) => {
 counters.forEach(c => counterObserver.observe(c));
 
 // ============================================================
-// LANGUAGE SWITCHER
+// LANGUAGE SWITCHER — FIXED FOR ES, CA, EN
 // ============================================================
 let currentLang = 'es';
 
@@ -2533,43 +2707,34 @@ function setLang(lang) {
   // Update buttons
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.remove('active');
-    if (btn.textContent.toLowerCase() === lang) btn.classList.add('active');
+    if (btn.textContent.trim().toLowerCase() === lang.toLowerCase()) {
+      btn.classList.add('active');
+    }
   });
 
-  // Update block elements
+  // Update block [data-lang] elements
   document.querySelectorAll('[data-lang]').forEach(el => {
     el.classList.remove('active');
-    el.style.display = '';
-    if (el.dataset.lang === lang) {
+    if (el.getAttribute('data-lang') === lang) {
       el.classList.add('active');
     }
   });
 
-  // Update inline elements
+  // Update inline [data-lang-inline] elements
   document.querySelectorAll('[data-lang-inline]').forEach(el => {
     el.classList.remove('active');
-    el.style.display = '';
-    if (el.dataset.langInline === lang) {
+    if (el.getAttribute('data-lang-inline') === lang) {
       el.classList.add('active');
     }
   });
 
-  // Fix hero title lines (they use inline + lang logic)
-  fixHeroTitleLines();
-
   document.documentElement.lang = lang === 'ca' ? 'ca' : lang === 'en' ? 'en' : 'es';
-}
-
-function fixHeroTitleLines() {
-  // Hero title lines have mixed class logic - handled by [data-lang] above
 }
 
 // ============================================================
 // HERO DIAGONAL PARALLAX ON SCROLL
 // ============================================================
-const heroDiagonal = document.querySelector('.hero-diagonal');
 const heroImgBg = document.querySelector('.hero-img-bg');
-
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   if (heroImgBg) {
@@ -2592,7 +2757,21 @@ document.querySelectorAll('.service-card').forEach(card => {
   });
 });
 
-// Init
+// ============================================================
+// MOBILE MENU
+// ============================================================
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links) {
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.cssText = 'display:flex; flex-direction:column; position:fixed; top:80px; left:0; right:0; background:rgba(2,15,38,0.98); padding:20px; gap:16px; z-index:898; max-height:80vh; overflow-y:auto;';
+    }
+  }
+}
+
+// Init language
 setLang('es');
 
 // Stagger reveal delays
